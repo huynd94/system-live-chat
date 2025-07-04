@@ -7,7 +7,7 @@ module.exports = (env, argv) => {
   return {
     entry: './src/index.js',
     output: {
-      path: path.resolve(__dirname, '../server/public/widget'),
+      path: path.resolve(__dirname, 'dist'),
       filename: isProduction ? 'chat-widget.js' : 'chat-widget.dev.js',
       library: 'ChatWidget',
       libraryTarget: 'umd',
