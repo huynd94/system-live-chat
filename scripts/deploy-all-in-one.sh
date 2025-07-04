@@ -10,6 +10,9 @@ APP_DIR="system-live-chat"
 DOMAIN=${1:-""}
 EMAIL="admin@${DOMAIN:-yourdomain.com}"
 
+# Lấy IP public của VPS
+IP=$(curl -s ifconfig.me)
+
 echo "=============================="
 echo "🚀 Triển khai hệ thống chat real-time"
 echo "=============================="
@@ -77,9 +80,9 @@ if [ -n "$DOMAIN" ]; then
   echo "🌐 Nhúng widget: <script src=\"https://$DOMAIN/widget/chat-widget.js\"></script>"
 else
   echo ""
-  echo "🌐 Truy cập Dashboard: http://<VPS_IP>:3000"
-  echo "🌐 Widget demo: http://<VPS_IP>:3001"
-  echo "🌐 API: http://<VPS_IP>:5000/api"
+  echo "🌐 Truy cập Dashboard: http://$IP:3000"
+  echo "🌐 Widget demo: http://$IP:3001"
+  echo "🌐 API: http://$IP:5000/api"
 fi
 
 echo ""

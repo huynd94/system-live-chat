@@ -74,7 +74,7 @@ sudo bash scripts/setup-ssl.sh yourdomain.com
 ## 📱 Sử dụng
 
 ### Dashboard Agent
-- Truy cập: `http://<VPS_IP>:3000` hoặc `https://yourdomain.com`
+- Truy cập: `http://103.142.24.242:3000` hoặc `https://yourdomain.com`
 - **Tài khoản demo:**
   - Agent 1: `agent1@example.com` / `123456`
   - Agent 2: `agent2@example.com` / `123456`
@@ -84,7 +84,7 @@ sudo bash scripts/setup-ssl.sh yourdomain.com
 ```html
 <script>
   window.ChatWidgetConfig = {
-    serverUrl: 'http://<VPS_IP>:5000', // hoặc https://yourdomain.com
+    serverUrl: 'http://103.142.24.242:5000', // hoặc https://yourdomain.com
     position: 'bottom-right',
     welcomeMessage: 'Xin chào! Chúng tôi có thể giúp gì cho bạn?',
     theme: {
@@ -100,12 +100,12 @@ sudo bash scripts/setup-ssl.sh yourdomain.com
     ]
   };
 </script>
-<script src="http://<VPS_IP>:5000/widget/chat-widget.js"></script>
+<script src="http://103.142.24.242:5000/widget/chat-widget.js"></script>
 <!-- hoặc -->
 <script src="https://yourdomain.com/widget/chat-widget.js"></script>
 ```
 
-### Widget demo: `http://<VPS_IP>:3001` hoặc `https://yourdomain.com/widget/demo.html`
+### Widget demo: `http://103.142.24.242:3001` hoặc `https://yourdomain.com/widget/demo.html`
 
 ---
 
