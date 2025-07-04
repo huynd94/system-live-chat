@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Chat Widget</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .demo-content {
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .config-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .config-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .button {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #2563EB;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Demo Chat Widget</h1>
+        
+        <div class="demo-content">
+            <p>Đây là trang demo để test widget chat. Widget sẽ xuất hiện ở góc dưới bên phải của trang.</p>
+            <p>Bạn có thể tùy chỉnh cấu hình widget bằng cách sửa đổi object <code>ChatWidgetConfig</code> bên dưới.</p>
+        </div>
+
+        <div class="config-section">
+            <h3>🔧 Cấu hình widget hiện tại:</h3>
+            <pre id="config-display"></pre>
+        </div>
+
+        <div class="config-section">
+            <h3>📝 Cách nhúng vào website:</h3>
+            <p>Để nhúng widget vào website của bạn, thêm đoạn code sau vào trang HTML:</p>
+            <pre>&lt;script&gt;
+  window.ChatWidgetConfig = {
+    serverUrl: 'https://your-domain.com',
+    position: 'bottom-right',
+    welcomeMessage: 'Xin chào! Chúng tôi có thể giúp gì cho bạn?',
+    theme: {
+      primaryColor: '#3B82F6',
+      textColor: '#374151',
+      backgroundColor: '#FFFFFF'
+    },
+    fields: [
+      { name: 'name', label: 'Họ tên', type: 'text', required: true },
+      { name: 'phone', label: 'Số điện thoại', type: 'tel', required: true },
+      { name: 'email', label: 'Email', type: 'email', required: false },
+      { name: 'content', label: 'Nội dung', type: 'textarea', required: true }
+    ]
+  };
+&lt;/script&gt;
+&lt;script src="https://your-domain.com/widget/chat-widget.js"&gt;&lt;/script&gt;</pre>
+        </div>
+
+        <div class="config-section">
+            <h3>🎛️ Tùy chỉnh demo:</h3>
+            <button class="button" onclick="changeTheme('blue')">Theme Xanh</button>
+            <button class="button" onclick="changeTheme('green')">Theme Xanh Lá</button>
+            <button class="button" onclick="changeTheme('red')">Theme Đỏ</button>
+            <button class="button" onclick="changePosition()">Đổi Vị Trí</button>
+        </div>
+    </div>
+
+    <!-- Script để khởi tạo widget -->
+    <script>
+        // Cấu hình mặc định cho demo
+        window.ChatWidgetConfig = {
+            serverUrl: 'http://localhost:5000',
+            position: 'bottom-right',
+            welcomeMessage: 'Xin chào! Chúng tôi có thể giúp gì cho bạn?',
+            theme: {
+                primaryColor: '#3B82F6',
+                textColor: '#374151',
+                backgroundColor: '#FFFFFF'
+            },
+            fields: [
+                { name: 'name', label: 'Họ tên', type: 'text', required: true },
+                { name: 'phone', label: 'Số điện thoại', type: 'tel', required: true },
+                { name: 'email', label: 'Email', type: 'email', required: false },
+                { name: 'address', label: 'Địa chỉ', type: 'text', required: false },
+                { name: 'content', label: 'Nội dung cần hỗ trợ', type: 'textarea', required: true }
+            ]
+        };
+
+        // Biến để lưu instance widget
+        let widgetInstance = null;
+
+        // Hiển thị cấu hình hiện tại
+        function updateConfigDisplay() {
+            document.getElementById('config-display').textContent = 
+                JSON.stringify(window.ChatWidgetConfig, null, 2);
+        }
+        
+        // Khởi tạo lại widget với cấu hình mới
+        function reinitWidget() {
+            if (widgetInstance) {
+                widgetInstance.destroy();
+            }
+            widgetInstance = window.initChatWidget(window.ChatWidgetConfig);
+        }
+
+        // Thay đổi theme
+        function changeTheme(theme) {
+            const themes = {
+                blue: '#3B82F6',
+                green: '#10B981', 
+                red: '#EF4444'
+            };
+            
+            window.ChatWidgetConfig.theme.primaryColor = themes[theme];
+            updateConfigDisplay();
+            reinitWidget();
+        }
+
+        // Thay đổi vị trí
+        function changePosition() {
+            const positions = ['bottom-right', 'bottom-left', 'top-right', 'top-left'];
+            const currentPos = window.ChatWidgetConfig.position;
+            const currentIndex = positions.indexOf(currentPos);
+            const nextIndex = (currentIndex + 1) % positions.length;
+            
+            window.ChatWidgetConfig.position = positions[nextIndex];
+            updateConfigDisplay();
+            reinitWidget();
+        }
+
+        // Khởi tạo khi trang load
+        window.addEventListener('DOMContentLoaded', function() {
+            updateConfigDisplay();
+            
+            // Đợi widget script load xong
+            if (window.initChatWidget) {
+                widgetInstance = window.initChatWidget(window.ChatWidgetConfig);
+            }
+        });
+    </script>
+</body>
+</html>

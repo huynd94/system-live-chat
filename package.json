@@ -1,0 +1,25 @@
+{
+  "name": "realtime-chat-system",
+  "version": "1.0.0",
+  "description": "Hệ thống chat real-time có thể tích hợp vào bất kỳ website nào",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run widget:dev\" \"npm run dashboard:dev\"",
+    "server:dev": "cd server && npm run dev",
+    "widget:dev": "cd client-widget && npm run dev", 
+    "dashboard:dev": "cd client-dashboard && npm run dev",
+    "build": "npm run server:build && npm run widget:build && npm run dashboard:build",
+    "server:build": "cd server && npm run build",
+    "widget:build": "cd client-widget && npm run build",
+    "dashboard:build": "cd client-dashboard && npm run build",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "keywords": ["chat", "real-time", "socket.io", "react", "mongodb"],
+  "author": "Developer",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
